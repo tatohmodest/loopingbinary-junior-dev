@@ -75,8 +75,8 @@ export async function POST(req: Request) {
     // Create payment data
     const paymentData = {
       "total_amount": amount,
-      "cancel_url": `https://intellex.study/payment-cancel?purchaseId=`,
-      "success_url": `https://intellex.study/payment-success?purchaseId=`,
+      "cancel_url": cancelUrl,
+      "success_url": successUrl,
       "currency": "XAF",
       "mode": "payment",
       "transaction_id": transactionId,
