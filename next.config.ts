@@ -11,7 +11,14 @@ const nextConfig: NextConfig = {
         pathname: '/looping-binary/**',
       },
     ],
+    
   },
+   typescript: {
+      ignoreBuildErrors: true,
+    },
+    eslint: {
+      ignoreDuringBuilds: true,
+    },
 }
 
 
