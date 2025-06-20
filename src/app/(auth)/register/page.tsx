@@ -139,14 +139,13 @@ export default function RegisterPage() {
         
         if (profileError) {
           console.error("Error creating profile:", profileError)
-          // We don't want to block registration if profile creation fails
-          // The profile can be created later
+         
         }
       }
       
       setSuccess(true)
       
-      // Redirect to verification page after a short delay
+      
      
     } catch (error: any) {
       setError(error.message || "Failed to register")
