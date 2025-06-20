@@ -113,7 +113,7 @@ export default function RegisterPage() {
           data: {
             full_name: name,
           },
-          emailRedirectTo: `${window.location.origin}/verified`,
+          emailRedirectTo: `https://loopingbinary-junior-dev.vercel.app/verified`,
         }
       })
       
