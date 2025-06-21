@@ -1,7 +1,7 @@
 // src/app/(auth)/register/page.tsx
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { supabase } from "@/lib/supabase"
@@ -28,6 +28,17 @@ export default function RegisterPage() {
   const [passwordStrength, setPasswordStrength] = useState(0)
   const [passwordFeedback, setPasswordFeedback] = useState("")
   
+//user redirect to dashboard if authenticated.
+useEffect(() => {
+    const checkAuth = async () => {
+      const { data } = await supabase.auth.getUser()
+      if (data?.user) {
+        router.push("/dashboard")
+      }
+    }
+    checkAuth()
+  }, [router])
+
   // Check password strength
   const checkPasswordStrength = (password: string) => {
     if (!password) {
