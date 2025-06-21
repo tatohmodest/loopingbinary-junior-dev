@@ -247,7 +247,7 @@ export default function ProfilePage() {
   }
   
   return (
-    <div className="container py-6 md:py-8 max-w-5xl">
+    <div className="container py-6 md:py-8 w-full">
       <div className="mb-6">
         <Button 
           variant="ghost" 

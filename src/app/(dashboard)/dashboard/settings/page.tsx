@@ -189,7 +189,7 @@ export default function ProfilePage() {
                 placeholder="+1234567890"
               />
               <p className="text-xs text-muted-foreground">
-                Include country code (e.g., +1 for US)
+                Include country code (e.g., +237 for CM, +234 for NGN)
               </p>
             </div>
             
