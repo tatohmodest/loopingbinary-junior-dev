@@ -199,7 +199,7 @@ useEffect(() => {
                 <h3 className="text-lg font-semibold mb-2">Registration Successful!</h3>
                 <p className="text-sm text-muted-foreground">
                   We've sent a verification email to <span className="font-medium">{email}</span>.
-                  Redirecting you to the verification page...
+                  Please Check your email for Verification
                 </p>
               </div>
             ) : (
