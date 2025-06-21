@@ -475,7 +475,7 @@ export default function RootLayout({
             </div>
           </div>
         </header>
-        <main className="p-6">
+        <main className="p-2 md:p6">
           {children}
         </main>
       </div>

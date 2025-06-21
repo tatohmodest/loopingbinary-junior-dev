@@ -326,7 +326,7 @@ export function SiteHeader() {
             </SheetTrigger>
             <SheetContent side="right" className="w-[85%] max-w-[350px] p-0">
               <SheetHeader className="p-4 border-b">
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-start gap-13">
                   <div className="flex items-center">
                     {mounted && (
                       <div className="relative h-6 w-auto">
@@ -358,7 +358,7 @@ export function SiteHeader() {
                       variant="ghost" 
                       size="icon" 
                       onClick={toggleTheme}
-                      className="h-9 w-9"
+                      className="h-9 w-9 hidden md:block"
                     >
                       {theme === "light" ? (
                         <Moon className="h-5 w-5" />
@@ -369,8 +369,25 @@ export function SiteHeader() {
                     </Button>
                   )}
                 </div>
-                <SheetDescription className="text-left">
+                 <SheetDescription className="text-left flex justify-between items-center">
+                  <span>
                   Junior Developer Program
+                  </span>
+                   {mounted && (
+                    <Button 
+                      variant="ghost" 
+                      size="icon" 
+                      onClick={toggleTheme}
+                      className="h-9 w-9"
+                    >
+                      {theme === "light" ? (
+                        <Moon className="h-5 w-5" />
+                      ) : (
+                        <Sun className="h-5 w-5" />
+                      )}
+                      <span className="sr-only">Toggle theme</span>
+                    </Button>
+                  )}
                 </SheetDescription>
               </SheetHeader>
               <div className="overflow-y-auto">

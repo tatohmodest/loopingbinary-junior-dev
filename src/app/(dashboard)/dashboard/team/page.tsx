@@ -567,7 +567,7 @@ export default function TeamPage() {
   
   if (!team) {
     return (
-      <div className="max-w-3xl mx-auto px-4 py-12">
+      <div className="w-full mx-auto px-4 py-12">
         <Card className="border-dashed">
           <CardContent className="pt-6 text-center">
             <div className="mb-4 flex justify-center">
@@ -598,7 +598,7 @@ export default function TeamPage() {
   }
   
   return (
-    <div className="max-w-6xl mx-auto px-4 py-6">
+    <div className="w-full mx-auto px-4 py-6">
       <div className="mb-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
@@ -839,7 +839,7 @@ export default function TeamPage() {
           {team.active && (
             <TabsTrigger value="modules">
               <BookOpen className="mr-2 h-4 w-4" />
-              Modules ({teamModules.length}/3)
+              Modules ({teamModules.length}/1)
             </TabsTrigger>
           )}
           <TabsTrigger value="communication">
