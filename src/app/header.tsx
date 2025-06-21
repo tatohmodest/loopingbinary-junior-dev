@@ -6,6 +6,8 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import Image from "next/image"
 import { supabase } from "@/lib/supabase"
+import { useAuthSession } from "@/hooks/useAuthSession" // ← Add this import
+import { queryWithRetry } from "@/lib/supabaseWithRetry"// ← Add this import
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -32,67 +34,65 @@ import { useTheme } from "next-themes"
 
 export function SiteHeader() {
   const pathname = usePathname()
-  const [user, setUser] = useState<any>(null)
+  const { session, loading } = useAuthSession() // ← Use the new hook
   const [profile, setProfile] = useState<any>(null)
-  const [loading, setLoading] = useState(true)
+  const [profileLoading, setProfileLoading] = useState(false)
   const { setTheme, theme } = useTheme()
   const [mounted, setMounted] = useState(false)
+
+  // Get user from session
+  const user = session?.user || null
 
   // After mounting, we have access to the theme
   useEffect(() => {
     setMounted(true)
   }, [])
 
+  // Fetch profile when user changes
   useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const { data: { user } } = await supabase.auth.getUser()
-        setUser(user)
+    const fetchProfile = async () => {
+      if (!user) {
+        setProfile(null)
+        return
+      }
 
-        if (user) {
-          const { data: profileData } = await supabase
-            .from("profiles")
-            .select("*")
-            .eq("user_id", user.id)
-            .single()
-          
+      setProfileLoading(true)
+      try {
+       // In your header component's useEffect:
+  // In your header component's useEffect:
+const { data: profileData, error } = await queryWithRetry(() =>
+  supabase
+    .from("profiles")
+    .select("*")
+    .eq("user_id", user.id)
+    .single()
+    // Note: No await here! We return the query builder, not the promise
+)
+
+
+
+        if (error) {
+          console.error("Error fetching profile:", error)
+        } else {
           setProfile(profileData)
         }
       } catch (error) {
-        console.error("Error fetching user:", error)
+        console.error("Error fetching profile:", error)
       } finally {
-        setLoading(false)
+        setProfileLoading(false)
       }
     }
 
-    fetchUser()
-
-    // Set up auth state change listener
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
-        setUser(session?.user || null)
-
-        if (session?.user) {
-          const { data: profileData } = await supabase
-            .from("profiles")
-            .select("*")
-            .eq("user_id", session.user.id)
-            .single()
-          
-          setProfile(profileData)
-        } else {
-          setProfile(null)
-        }
-      }
-    )
-
-    return () => {
-      subscription.unsubscribe()
-    }
-  }, [])
+    fetchProfile()
+  }, [user]) // ← Only depend on user, not the whole session
 
   const handleSignOut = async () => {
-    await supabase.auth.signOut()
+    try {
+      await supabase.auth.signOut()
+      setProfile(null) // Clear profile immediately
+    } catch (error) {
+      console.error("Error signing out:", error)
+    }
   }
 
   const getInitials = (name: string) => {
@@ -117,6 +117,9 @@ export function SiteHeader() {
   const toggleTheme = () => {
     setTheme(theme === "dark" ? "light" : "dark")
   }
+
+  // Show loading state while auth is initializing
+  const isLoading = loading || profileLoading
 
   return (
     <header className="sticky top-0 md:px-[60px] px-1 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -222,7 +225,13 @@ export function SiteHeader() {
             </div>
           )}
 
-          {!loading && (
+          {/* Show loading state or auth buttons */}
+          {isLoading ? (
+            <div className="flex items-center space-x-2">
+              <div className="h-10 w-24 bg-muted rounded animate-pulse" />
+              <div className="h-10 w-10 bg-muted rounded-full animate-pulse" />
+            </div>
+          ) : (
             <>
               {user ? (
                 <div className="flex items-center space-x-2">
