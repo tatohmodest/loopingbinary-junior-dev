@@ -39,7 +39,7 @@ export function ProgramAlertBanner({ onClose }: ProgramAlertBannerProps) {
   if (!isVisible) return null
 
   return (
-    <div className="bg-orange-500 text-white text-xs py-2 px-4 relative">
+    <div className="bg-green-900 text-white text-xs py-2 px-4 relative">
       <div className="flex items-center justify-center space-x-2 max-w-7xl mx-auto">
         <span className="font-medium">
           🔥 LoopingBinary Program Started - Register your team now! 
