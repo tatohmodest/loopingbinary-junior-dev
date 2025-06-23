@@ -54,7 +54,7 @@ export function ProgramAlertBanner({ onClose }: ProgramAlertBannerProps) {
           </div>
           
           <div className="hidden sm:block h-4 w-px bg-white/30"></div>
-          <Link href='/dashoboard/team'>
+          <Link href='/dashboard/team'>
           <span className="text-green-100 font-medium">
 
             Register your team now!
