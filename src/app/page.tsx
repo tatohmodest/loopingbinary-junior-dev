@@ -29,7 +29,7 @@ import { SiteHeader } from "./header"
 import { useEffect, useState } from "react"
 import AnimatedGridBackground from "@/components/animation/Animation"
 import { SiteFooter } from "@/components/footer/footer"
-import { ProgramAlertCard } from "@/components/alert"
+import { ProgramAlertBanner } from "@/components/alert"
 
 // Floating particles component
 const FloatingParticles = () => {
@@ -182,7 +182,7 @@ export default function HomePage() {
   
   return (
    <div>
-    <ProgramAlertCard />
+    <ProgramAlertBanner />
     <SiteHeader />
     
     <div className="flex flex-col relative">

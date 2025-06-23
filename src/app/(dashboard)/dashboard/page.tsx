@@ -47,7 +47,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { ProgramAlertCard } from "@/components/alert"
+import { ProgramAlertBanner } from "@/components/alert"
 
 export default function DashboardPage() {
   const router = useRouter()
@@ -313,7 +313,7 @@ export default function DashboardPage() {
   return (
     <div className="flex min-h-screen bg-background">
       {/* Main Content */}
-      <ProgramAlertCard />
+      <ProgramAlertBanner />
       <div className="flex-1">
           
         {/* Content */}
