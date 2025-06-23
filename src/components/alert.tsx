@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { X, Clock } from "lucide-react"
+import Link from "next/link"
 
 interface ProgramAlertBannerProps {
   onClose?: () => void
@@ -43,20 +44,22 @@ export function ProgramAlertBanner({ onClose }: ProgramAlertBannerProps) {
       {/* Animated background pulse */}
       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-pulse"></div>
       
-      <div className="relative flex items-center justify-between max-w-7xl mx-auto px-6 py-3">
+      <div className="relative flex items-center justify-between max-w-7xl mx-auto px-6 py-1">
         <div className="flex items-center space-x-4">
           <div className="flex items-center space-x-2">
             <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
             <span className="font-semibold tracking-wide">
-              🚀 LoopingBinary Program Started
+              🚀 LoopingBinary Junior Dev Program has began
             </span>
           </div>
           
           <div className="hidden sm:block h-4 w-px bg-white/30"></div>
-          
+          <Link href='/dashoboard/team'>
           <span className="text-green-100 font-medium">
+
             Register your team now!
           </span>
+          </Link>
         </div>
 
         <div className="flex items-center space-x-4">
