@@ -14,7 +14,7 @@ export function ProgramAlertBanner({ onClose }: ProgramAlertBannerProps) {
   useEffect(() => {
     const calculateTimeLeft = () => {
       const now = new Date()
-      const endDate = new Date("2024-07-23T23:59:59")
+      const endDate = new Date("2025-07-23T23:59:59")
       const difference = endDate.getTime() - now.getTime()
 
       if (difference > 0) {
