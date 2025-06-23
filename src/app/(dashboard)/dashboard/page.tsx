@@ -47,6 +47,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { ProgramAlertCard } from "@/components/alert"
 
 export default function DashboardPage() {
   const router = useRouter()
@@ -266,7 +267,7 @@ export default function DashboardPage() {
       )
     }
     
-    if (subscriptionStatus === true) {
+    if (subscriptionStatus) {
       return (
         <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200 dark:bg-green-950/30 dark:text-green-400 dark:border-green-800">
           <ShieldCheck className="w-3 h-3 mr-1" />
@@ -312,6 +313,7 @@ export default function DashboardPage() {
   return (
     <div className="flex min-h-screen bg-background">
       {/* Main Content */}
+      <ProgramAlertCard />
       <div className="flex-1">
           
         {/* Content */}

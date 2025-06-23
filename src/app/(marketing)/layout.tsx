@@ -5,6 +5,7 @@ import '@/app/globals.css'
 import { ThemeProvider } from '@/components/theme-provider';
 import { SiteHeader } from '../header';
 import { SiteFooter } from '@/components/footer/footer';
+import { ProgramAlertCard } from '@/components/alert';
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -28,6 +29,7 @@ export default function RootLayout({
         fontSans.variable
       )}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <ProgramAlertCard />
             <SiteHeader />
           {children}
           <SiteFooter />

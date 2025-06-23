@@ -29,6 +29,7 @@ import { SiteHeader } from "./header"
 import { useEffect, useState } from "react"
 import AnimatedGridBackground from "@/components/animation/Animation"
 import { SiteFooter } from "@/components/footer/footer"
+import { ProgramAlertCard } from "@/components/alert"
 
 // Floating particles component
 const FloatingParticles = () => {
@@ -82,6 +83,7 @@ const AnimatedCodeBlock = () => {
   }, [])
 
   return (
+    
     <div className="bg-gray-900 rounded-lg p-4 font-mono text-sm overflow-hidden">
       <div className="flex items-center mb-3">
         <div className="flex space-x-2">
@@ -180,6 +182,7 @@ export default function HomePage() {
   
   return (
    <div>
+    <ProgramAlertCard />
     <SiteHeader />
     
     <div className="flex flex-col relative">
