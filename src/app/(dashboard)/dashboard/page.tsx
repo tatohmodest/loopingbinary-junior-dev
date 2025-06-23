@@ -313,11 +313,12 @@ export default function DashboardPage() {
   return (
     <div className="flex min-h-screen bg-background">
       {/* Main Content */}
-      <ProgramAlertBanner />
+    
       <div className="flex-1">
           
         {/* Content */}
         <main className="p-4 sm:p-6 lg:p-8 space-y-6">
+            <ProgramAlertBanner />
           <div>
             <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
             <p className="text-muted-foreground">
