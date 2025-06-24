@@ -75,8 +75,8 @@ export async function POST(req: Request) {
     // Create payment data
     const paymentData = {
       "total_amount": amount,
-      "cancel_url": "https://loopingbinary-junior-dev.vercel.app/payments/cancel",
-      "success_url": "https://loopingbinary-junior-dev.vercel.app/payments/success",
+      "cancel_url": "https://loopingbinary-junior-dev.vercel.app/dashboard/payments/cancel",
+      "success_url": "https://loopingbinary-junior-dev.vercel.app/dashboard/payments/success",
       "currency": "XAF",
       "mode": "payment",
       "transaction_id": transactionId,
