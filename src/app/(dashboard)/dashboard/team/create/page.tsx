@@ -115,7 +115,7 @@ export default function CreateTeamPage() {
             discord_link: discordLink || null,
             project_url: projectUrl || null,
             created_by: user.id,
-            active: false ,
+            active:true ,
             created_at: new Date().toISOString()
           }
         ])
@@ -161,7 +161,7 @@ export default function CreateTeamPage() {
       
       // Redirect to team page after a short delay
       setTimeout(() => {
-         router.push(`/dashboard/payments`)
+         router.push(`/dashboard/teams`)
       }, 3000)
     } catch (error: any) {
       setError(error.message || "Failed to create team")

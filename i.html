@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML, CSS & SASS Assessment Test</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #2d3748;
+            background: #ffffff;
+            font-size: 11px;
+        }
+        
+        .container {
+            max-width: 8.5in;
+            margin: 0 auto;
+            padding: 0.5in;
+            background: white;
+            min-height: 100vh;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #4299e1;
+        }
+        
+        .header h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+        
+        .header .subtitle {
+            font-size: 14px;
+            color: #4a5568;
+            font-weight: 500;
+        }
+        
+        .section {
+            margin-bottom: 25px;
+            break-inside: avoid;
+        }
+        
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1a202c;
+            margin-bottom: 15px;
+            padding: 8px 12px;
+            background: linear-gradient(135deg, #4299e1, #3182ce);
+            color: white;
+            border-radius: 6px;
+        }
+        
+        .subsection-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #2d3748;
+            margin: 20px 0 12px 0;
+            padding: 6px 10px;
+            background: #edf2f7;
+            border-left: 4px solid #4299e1;
+        }
+        
+        .question {
+            margin-bottom: 15px;
+            padding: 12px;
+            background: #f7fafc;
+            border-radius: 6px;
+            border-left: 3px solid #e2e8f0;
+        }
+        
+        .question-number {
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 6px;
+        }
+        
+        .question-text {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+        
+        .options {
+            margin-left: 15px;
+        }
+        
+        .option {
+            margin-bottom: 3px;
+            line-height: 1.4;
+        }
+        
+        .code-block {
+            background: #1a202c;
+            color: #e2e8f0;
+            padding: 12px;
+            border-radius: 6px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 10px;
+            margin: 8px 0;
+            overflow-x: auto;
+            border: 1px solid #2d3748;
+        }
+        
+        .inline-code {
+            background: #edf2f7;
+            color: #2d3748;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 10px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .structural-question {
+            background: #fff5f5;
+            border: 1px solid #feb2b2;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .practical-question {
+            background: #f0fff4;
+            border: 1px solid #9ae6b4;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            background: white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .table th,
+        .table td {
+            padding: 8px 12px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 10px;
+        }
+        
+        .table th {
+            background: #4299e1;
+            color: white;
+            font-weight: 600;
+        }
+        
+        .table tr:hover {
+            background: #f7fafc;
+        }
+        
+        .requirements {
+            background: #fffaf0;
+            border: 1px solid #fbd38d;
+            padding: 12px;
+            border-radius: 6px;
+            margin: 10px 0;
+        }
+        
+        .requirements-title {
+            font-weight: 600;
+            color: #c05621;
+            margin-bottom: 6px;
+        }
+        
+        ul, ol {
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+        
+        li {
+            margin-bottom: 4px;
+            line-height: 1.4;
+        }
+        
+        .marks {
+            font-weight: 600;
+            color: #1a202c;
+            background: #bee3f8;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 10px;
+        }
+        
+        .page-break {
+            page-break-before: always;
+        }
+        
+        @media print {
+            body {
+                font-size: 10px;
+            }
+            .container {
+                padding: 0.3in;
+            }
+            .section {
+                break-inside: avoid;
+            }
+            .question {
+                break-inside: avoid;
+            }
+        }
+        
+        .footer-note {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+            color: #718096;
+            font-size: 12px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>HTML, CSS & SASS ASSESSMENT TEST</h1>
+            <div class="subtitle">Duration: 90 Minutes | Total Marks: 100</div>
+        </div>
+
+        <div class="section">
+            <a href="/index.html">Go to data analyst Page</a>
+            <div class="section-title">SECTION A: MULTIPLE CHOICE QUESTIONS (40 Marks)</div>
+            <p style="font-style: italic; margin-bottom: 15px;">Choose the best answer for each question. Each question carries 2 marks.</p>
+
+            <div class="subsection-title">HTML Fundamentals (8 Questions)</div>
+
+            <div class="question">
+                <div class="question-number">1. Which HTML5 semantic element is most appropriate for a website's main navigation menu?</div>
+                <div class="options">
+                    <div class="option">a) <span class="inline-code">&lt;div class="navigation"&gt;</span></div>
+                    <div class="option">b) <span class="inline-code">&lt;nav&gt;</span></div>
+                    <div class="option">c) <span class="inline-code">&lt;menu&gt;</span></div>
+                    <div class="option">d) <span class="inline-code">&lt;header&gt;</span></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">2. What is the correct HTML5 doctype declaration?</div>
+                <div class="options">
+                    <div class="option">a) <span class="inline-code">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"&gt;</span></div>
+                    <div class="option">b) <span class="inline-code">&lt;!DOCTYPE HTML&gt;</span></div>
+                    <div class="option">c) <span class="inline-code">&lt;!DOCTYPE html&gt;</span></div>
+                    <div class="option">d) <span class="inline-code">&lt;DOCTYPE html&gt;</span></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">3. Which attribute is required for all <span class="inline-code">&lt;img&gt;</span> elements to ensure accessibility?</div>
+                <div class="options">
+                    <div class="option">a) <span class="inline-code">src</span></div>
+                    <div class="option">b) <span class="inline-code">alt</span></div>
+                    <div class="option">c) <span class="inline-code">title</span></div>
+                    <div class="option">d) <span class="inline-code">width</span></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">4. What does the following HTML structure represent semantically?</div>
+                <div class="code-block">&lt;article&gt;
+  &lt;header&gt;
+    &lt;h2&gt;Blog Post Title&lt;/h2&gt;
+  &lt;/header&gt;
+  &lt;section&gt;
+    &lt;p&gt;Content here...&lt;/p&gt;
+  &lt;/section&gt;
+&lt;/article&gt;</div>
+                <div class="options">
+                    <div class="option">a) A navigation menu</div>
+                    <div class="option">b) A standalone piece of content</div>
+                    <div class="option">c) A page header</div>
+                    <div class="option">d) A form section</div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">5. Which HTML5 input type automatically validates email addresses?</div>
+                <div class="options">
+                    <div class="option">a) <span class="inline-code">&lt;input type="text"&gt;</span></div>
+                    <div class="option">b) <span class="inline-code">&lt;input type="email"&gt;</span></div>
+                    <div class="option">c) <span class="inline-code">&lt;input type="mail"&gt;</span></div>
+                    <div class="option">d) <span class="inline-code">&lt;input type="validate"&gt;</span></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">6. What is the correct way to create a dropdown list in HTML?</div>
+                <div class="options">
+                    <div class="option">a) <span class="inline-code">&lt;dropdown&gt;&lt;option&gt;Item&lt;/option&gt;&lt;/dropdown&gt;</span></div>
+                    <div class="option">b) <span class="inline-code">&lt;select&gt;&lt;option&gt;Item&lt;/option&gt;&lt;/select&gt;</span></div>
+                    <div class="option">c) <span class="inline-code">&lt;list&gt;&lt;item&gt;Item&lt;/item&gt;&lt;/list&gt;</span></div>
+                    <div class="option">d) <span class="inline-code">&lt;menu&gt;&lt;option&gt;Item&lt;/option&gt;&lt;/menu&gt;</span></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">7. Which HTML element is used to define important text (typically displayed in bold)?</div>
+                <div class="options">
+                    <div class="option">a) <span class="inline-code">&lt;b&gt;</span></div>
+                    <div class="option">b) <span class="inline-code">&lt;strong&gt;</span></div>
+                    <div class="option">c) <span class="inline-code">&lt;important&gt;</span></div>
+                    <div class="option">d) <span class="inline-code">&lt;bold&gt;</span></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">8. What is the purpose of the <span class="inline-code">&lt;meta charset="UTF-8"&gt;</span> tag?</div>
+                <div class="options">
+                    <div class="option">a) Sets the page language</div>
+                    <div class="option">b) Defines character encoding</div>
+                    <div class="option">c) Sets the viewport</div>
+                    <div class="option">d) Links external stylesheets</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-break"></div>
+
+        <div class="section">
+            <div class="subsection-title">CSS Fundamentals (8 Questions)</div>
+
+            <div class="question">
+                <div class="question-number">9. Which CSS property is used to change the text color of an element?</div>
+                <div class="options">
+                    <div class="option">a) <span class="inline-code">text-color</span></div>
+                    <div class="option">b) <span class="inline-code">font-color</span></div>
+                    <div class="option">c) <span class="inline-code">color</span></div>
+                    <div class="option">d) <span class="inline-code">text-style</span></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">10. What is the correct CSS syntax to select all <span class="inline-code">&lt;p&gt;</span> elements inside a <span class="inline-code">&lt;div&gt;</span>?</div>
+                <div class="options">
+                    <div class="option">a) <span class="inline-code">div + p</span></div>
+                    <div class="option">b) <span class="inline-code">div p</span></div>
+                    <div class="option">c) <span class="inline-code">div > p</span></div>
+                    <div class="option">d) <span class="inline-code">div.p</span></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">11. Which CSS property controls the space between the element's border and its content?</div>
+                <div class="options">
+                    <div class="option">a) <span class="inline-code">margin</span></div>
+                    <div class="option">b) <span class="inline-code">padding</span></div>
+                    <div class="option">c) <span class="inline-code">border-spacing</span></div>
+                    <div class="option">d) <span class="inline-code">spacing</span></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">12. What does the CSS rule <span class="inline-code">display: flex;</span> do?</div>
+                <div class="options">
+                    <div class="option">a) Makes an element flexible in size</div>
+                    <div class="option">b) Creates a flexible container for layout</div>
+                    <div class="option">c) Adds flexibility to text</div>
+                    <div class="option">d) Makes an element transparent</div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">13. Which CSS unit is relative to the font-size of the root element?</div>
+                <div class="options">
+                    <div class="option">a) <span class="inline-code">em</span></div>
+                    <div class="option">b) <span class="inline-code">rem</span></div>
+                    <div class="option">c) <span class="inline-code">px</span></div>
+                    <div class="option">d) <span class="inline-code">%</span></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">14. What is the correct way to center a block element horizontally?</div>
+                <div class="options">
+                    <div class="option">a) <span class="inline-code">text-align: center;</span></div>
+                    <div class="option">b) <span class="inline-code">margin: 0 auto;</span></div>
+                    <div class="option">c) <span class="inline-code">align: center;</span></div>
+                    <div class="option">d) <span class="inline-code">center: true;</span></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">15. Which CSS property is used to create rounded corners?</div>
+                <div class="options">
+                    <div class="option">a) <span class="inline-code">corner-radius</span></div>
+                    <div class="option">b) <span class="inline-code">border-curve</span></div>
+                    <div class="option">c) <span class="inline-code">border-radius</span></div>
+                    <div class="option">d) <span class="inline-code">corner-style</span></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">16. What does the CSS specificity value of an ID selector (#myId) equal?</div>
+                <div class="options">
+                    <div class="option">a) 1</div>
+                    <div class="option">b) 10</div>
+                    <div class="option">c) 100</div>
+                    <div class="option">d) 1000</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="subsection-title">SASS/SCSS (4 Questions)</div>
+
+            <div class="question">
+                <div class="question-number">17. What is the correct way to declare a variable in SASS?</div>
+                <div class="options">
+                    <div class="option">a) <span class="inline-code">@variable-name: value;</span></div>
+                    <div class="option">b) <span class="inline-code">$variable-name: value;</span></div>
+                    <div class="option">c) <span class="inline-code">var variable-name = value;</span></div>
+                    <div class="option">d) <span class="inline-code">--variable-name: value;</span></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">18. Which SASS feature allows you to nest CSS rules?</div>
+                <div class="options">
+                    <div class="option">a) Mixins</div>
+                    <div class="option">b) Functions</div>
+                    <div class="option">c) Nesting</div>
+                    <div class="option">d) Partials</div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">19. What is the correct syntax for a SASS mixin?</div>
+                <div class="options">
+                    <div class="option">a) <span class="inline-code">@function mixinName() { }</span></div>
+                    <div class="option">b) <span class="inline-code">@mixin mixinName() { }</span></div>
+                    <div class="option">c) <span class="inline-code">@include mixinName() { }</span></div>
+                    <div class="option">d) <span class="inline-code">$mixin mixinName() { }</span></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">20. How do you use a SASS mixin in your stylesheet?</div>
+                <div class="options">
+                    <div class="option">a) <span class="inline-code">@mixin mixinName;</span></div>
+                    <div class="option">b) <span class="inline-code">@use mixinName;</span></div>
+                    <div class="option">c) <span class="inline-code">@include mixinName;</span></div>
+                    <div class="option">d) <span class="inline-code">@apply mixinName;</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-break"></div>
+
+        <div class="section">
+            <div class="section-title">SECTION B: STRUCTURAL QUESTIONS (30 Marks)</div>
+
+            <div class="structural-question">
+                <div class="subsection-title">Question 1: HTML Structure Analysis <span class="marks">(10 Marks)</span></div>
+                <p><strong>Analyze the following HTML code and answer the questions:</strong></p>
+                
+                <div class="code-block">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Student Portfolio&lt;/title&gt;
+    &lt;link rel="stylesheet" href="styles.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;header&gt;
+        &lt;nav&gt;
+            &lt;ul&gt;
+                &lt;li&gt;&lt;a href="#home"&gt;Home&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href="#about"&gt;About&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href="#projects"&gt;Projects&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/nav&gt;
+    &lt;/header&gt;
+    
+    &lt;main&gt;
+        &lt;section id="home"&gt;
+            &lt;h1&gt;Welcome to My Portfolio&lt;/h1&gt;
+            &lt;p&gt;I am a software engineering student.&lt;/p&gt;
+        &lt;/section&gt;
+        
+        &lt;section id="projects"&gt;
+            &lt;h2&gt;My Projects&lt;/h2&gt;
+            &lt;article&gt;
+                &lt;h3&gt;Project 1&lt;/h3&gt;
+                &lt;p&gt;Description of project 1&lt;/p&gt;
+            &lt;/article&gt;
+        &lt;/section&gt;
+    &lt;/main&gt;
+    
+    &lt;footer&gt;
+        &lt;p&gt;&copy; 2024 Student Name&lt;/p&gt;
+    &lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;</div>
+
+                <p><strong>a) List 3 HTML5 semantic elements used in this code and explain their purpose. <span class="marks">(6 marks)</span></strong></p>
+                <p><strong>b) Identify 2 accessibility improvements that could be made to this HTML structure. <span class="marks">(4 marks)</span></strong></p>
+            </div>
+
+            <div class="structural-question">
+                <div class="subsection-title">Question 2: CSS Box Model & Layout <span class="marks">(10 Marks)</span></div>
+                <p><strong>Given the following CSS rule:</strong></p>
+                
+                <div class="code-block">.container {
+    width: 300px;
+    padding: 20px;
+    border: 5px solid black;
+    margin: 10px;
+    box-sizing: border-box;
+}</div>
+
+                <p><strong>a) Calculate the total space this element will occupy horizontally on the page. Show your working. <span class="marks">(5 marks)</span></strong></p>
+                <p><strong>b) Explain what would change if <span class="inline-code">box-sizing: content-box;</span> was used instead. <span class="marks">(3 marks)</span></strong></p>
+                <p><strong>c) Write CSS code to center this container horizontally on the page. <span class="marks">(2 marks)</span></strong></p>
+            </div>
+
+            <div class="structural-question">
+                <div class="subsection-title">Question 3: CSS Selectors & Specificity <span class="marks">(10 Marks)</span></div>
+                <p><strong>For the following HTML:</strong></p>
+                
+                <div class="code-block">&lt;div class="container"&gt;
+    &lt;p id="intro" class="highlight"&gt;Introduction paragraph&lt;/p&gt;
+    &lt;p class="highlight"&gt;Second paragraph&lt;/p&gt;
+    &lt;div class="sidebar"&gt;
+        &lt;p&gt;Sidebar paragraph&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</div>
+
+                <p><strong>a) Write CSS selectors for the following <span class="marks">(4 marks)</span>:</strong></p>
+                <ul>
+                    <li>Select only the introduction paragraph</li>
+                    <li>Select all paragraphs with class "highlight"</li>
+                    <li>Select the paragraph inside the sidebar</li>
+                    <li>Select all paragraphs that are direct children of .container</li>
+                </ul>
+
+                <p><strong>b) Calculate the specificity values for these selectors <span class="marks">(3 marks)</span>:</strong></p>
+                <ul>
+                    <li><span class="inline-code">#intro.highlight</span></li>
+                    <li><span class="inline-code">.container p</span></li>
+                    <li><span class="inline-code">div.sidebar p</span></li>
+                </ul>
+
+                <p><strong>c) Which selector has the highest specificity and why? <span class="marks">(3 marks)</span></strong></p>
+            </div>
+        </div>
+
+        <div class="page-break"></div>
+
+        <div class="section">
+            <div class="section-title">SECTION C: PRACTICAL APPLICATION (30 Marks)</div>
+
+            <div class="practical-question">
+                <div class="subsection-title">Question 1: Responsive Navigation Menu <span class="marks">(15 Marks)</span></div>
+                <p><strong>Write HTML and CSS code to create a responsive navigation menu with the following requirements:</strong></p>
+
+                <div class="requirements">
+                    <div class="requirements-title">HTML Requirements <span class="marks">(5 marks)</span>:</div>
+                    <ul>
+                        <li>Use semantic HTML5 elements</li>
+                        <li>Include 5 navigation links (Home, About, Services, Portfolio, Contact)</li>
+                        <li>Include a logo/brand name</li>
+                        <li>Ensure accessibility with proper attributes</li>
+                    </ul>
+                </div>
+
+                <div class="requirements">
+                    <div class="requirements-title">CSS Requirements <span class="marks">(10 marks)</span>:</div>
+                    <ul>
+                        <li>Horizontal layout on desktop (min-width: 768px)</li>
+                        <li>Mobile-friendly hamburger menu concept for smaller screens</li>
+                        <li>Hover effects on navigation links</li>
+                        <li>Use Flexbox for layout</li>
+                        <li>Include at least 3 CSS custom properties (variables)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="practical-question">
+                <div class="subsection-title">Question 2: SASS Card Component <span class="marks">(15 Marks)</span></div>
+                <p><strong>Create a SASS/SCSS file that generates CSS for a card component with the following specifications:</strong></p>
+
+                <div class="requirements">
+                    <div class="requirements-title">SASS Requirements <span class="marks">(15 marks)</span>:</div>
+                    
+                    <p><strong>a) Variables <span class="marks">(3 marks)</span>:</strong></p>
+                    <ul>
+                        <li>Define variables for primary color, secondary color, and border radius</li>
+                        <li>Define variables for spacing (small, medium, large)</li>
+                    </ul>
+
+                    <p><strong>b) Mixin <span class="marks">(5 marks)</span>:</strong></p>
+                    <ul>
+                        <li>Create a mixin called <span class="inline-code">card-shadow</span> that accepts parameters for:</li>
+                        <li>Shadow color (with default value)</li>
+                        <li>Shadow blur radius (with default value)</li>
+                    </ul>
+
+                    <p><strong>c) Nesting & Structure <span class="marks">(7 marks)</span>:</strong></p>
+                    <ul>
+                        <li>Create a <span class="inline-code">.card</span> class with:</li>
+                        <li>Background color, padding, and border radius using variables</li>
+                        <li>Nested <span class="inline-code">.card-header</span> with title styling</li>
+                        <li>Nested <span class="inline-code">.card-body</span> with content styling</li>
+                        <li>Nested <span class="inline-code">.card-footer</span> with button styling</li>
+                        <li>Use the card-shadow mixin</li>
+                        <li>Include hover effects</li>
+                    </ul>
+                </div>
+
+                <p><strong>Example structure to style:</strong></p>
+                <div class="code-block">&lt;div class="card"&gt;
+    &lt;div class="card-header"&gt;
+        &lt;h3&gt;Card Title&lt;/h3&gt;
+    &lt;/div&gt;
+    &lt;div class="card-body"&gt;
+        &lt;p&gt;Card content goes here...&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class

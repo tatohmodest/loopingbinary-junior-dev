@@ -87,6 +87,11 @@ export default function RootLayout({
           console.error("Auth error:", authError)
           return
         }
+            
+        if (!authUser) {
+          router.push("/login")
+          return
+        }
 
         if (authUser) {
           console.log("Current user:", authUser.id)
@@ -124,7 +129,7 @@ export default function RootLayout({
   const handleLogout = async () => {
     try {
       await supabase.auth.signOut()
-      router.push('/auth/login')
+      router.push('/login')
     } catch (error) {
       console.error("Logout error:", error)
     }

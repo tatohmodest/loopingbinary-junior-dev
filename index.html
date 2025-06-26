@@ -1,0 +1,1389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Pandas Comprehensive Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 30px rgba(0,0,0,0.1);
+            min-height: 100vh;
+        }
+
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Navigation Styles */
+        .nav {
+            background: #34495e;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .nav-list {
+            display: flex;
+            list-style: none;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .nav-item a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-item a:hover {
+            background: #3498db;
+            transform: translateY(-2px);
+        }
+
+        /* Content Styles */
+        .content {
+            padding: 2rem;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+            scroll-margin-top: 80px;
+        }
+
+        .section h2 {
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid #3498db;
+            position: relative;
+        }
+
+        .section h3 {
+            color: #34495e;
+            font-size: 1.8rem;
+            margin: 2rem 0 1rem 0;
+            padding-left: 1rem;
+            border-left: 4px solid #e74c3c;
+        }
+
+        .section h4 {
+            color: #2c3e50;
+            font-size: 1.4rem;
+            margin: 1.5rem 0 0.8rem 0;
+            font-weight: 600;
+        }
+
+        .section p {
+            margin-bottom: 1rem;
+            text-align: justify;
+            font-size: 1.05rem;
+        }
+
+        /* Code Styles */
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            overflow-x: auto;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .code-block::before {
+            content: 'Python';
+            position: absolute;
+            top: 0.5rem;
+            right: 1rem;
+            background: #e74c3c;
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .code-block pre {
+            margin: 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+
+        /* Table Styles */
+        .table-container {
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        td {
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        tr:hover {
+            background: #e3f2fd;
+            transition: background 0.3s ease;
+        }
+
+        /* Card Styles */
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-left: 4px solid #3498db;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .card h4 {
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Highlight Boxes */
+        .highlight-box {
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 1.5rem 0;
+            box-shadow: 0 4px 15px rgba(116, 185, 255, 0.3);
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, #fd79a8, #e84393);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 1.5rem 0;
+            box-shadow: 0 4px 15px rgba(253, 121, 168, 0.3);
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #00b894, #00a085);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 1.5rem 0;
+            box-shadow: 0 4px 15px rgba(0, 184, 148, 0.3);
+        }
+
+        /* List Styles */
+        ul, ol {
+            margin: 1rem 0;
+            padding-left: 2rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+            font-size: 1.05rem;
+        }
+
+        /* Abstract Styles */
+        .abstract {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            border-left: 6px solid #3498db;
+            font-style: italic;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        /* Footer */
+        .footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .nav-list {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .content {
+                padding: 1rem;
+            }
+            
+            .section h2 {
+                font-size: 2rem;
+            }
+            
+            .section h3 {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Scroll to top button */
+        .scroll-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .scroll-top:hover {
+            background: #2980b9;
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>🐼 Python Pandas</h1>
+            <p class="subtitle">A Comprehensive Guide to Data Analysis</p>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="nav">
+            <div class="nav-container">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="/something.html">Assignment</a></li>
+                    <li class="nav-item"><a href="#abstract">Abstract</a></li>
+                    <li class="nav-item"><a href="#introduction">Introduction</a></li>
+                    <li class="nav-item"><a href="#data-structures">Data Structures</a></li>
+                    <li class="nav-item"><a href="#io-tools">I/O Tools</a></li>
+                    <li class="nav-item"><a href="#data-manipulation">Data Manipulation</a></li>
+                    <li class="nav-item"><a href="#data-combination">Data Combination</a></li>
+                    <li class="nav-item"><a href="#groupby">GroupBy Operations</a></li>
+                    <li class="nav-item"><a href="#time-series">Time Series</a></li>
+                    <li class="nav-item"><a href="#categorical">Categorical Data</a></li>
+                    <li class="nav-item"><a href="#performance">Performance</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Content -->
+        <main class="content">
+            <!-- Abstract -->
+            <section id="abstract" class="section">
+                <div class="abstract">
+                    <strong>Abstract:</strong> This report provides a comprehensive guide to Python's Pandas library, an indispensable tool for data manipulation and analysis. It covers foundational concepts, core data structures (Series and DataFrame), essential I/O operations, advanced data selection and manipulation techniques, data combination and reshaping, powerful GroupBy operations, time series analysis, and handling categorical data. Crucially, the guide delves into performance optimization strategies and best practices for working with large datasets, ensuring readers gain both theoretical understanding and practical proficiency for real-world data science challenges.
+                </div>
+            </section>
+
+            <!-- Introduction -->
+            <section id="introduction" class="section">
+                <h2>1. Introduction to Pandas</h2>
+                
+                <h3>1.1 What is Pandas?</h3>
+                <div class="card">
+                    <p>Pandas is an open-source Python library widely recognized as one of the most essential tools for data analysis and manipulation. It provides high-performance, easy-to-use data structures and data analysis tools, making it a cornerstone of the Python data stack.</p>
+                </div>
+
+                <div class="highlight-box">
+                    <h4>Key Features:</h4>
+                    <ul>
+                        <li>High-performance data structures (Series and DataFrame)</li>
+                        <li>Easy-to-use API for data manipulation</li>
+                        <li>Handles various data types (integers, floats, strings)</li>
+                        <li>Excellent for machine learning preprocessing</li>
+                        <li>Supports labeled axes and heterogeneous columns</li>
+                    </ul>
+                </div>
+
+                <h3>1.2 Why Use Pandas for Data Analysis?</h3>
+                <p>Pandas simplifies working with data, offering robust tools for data manipulation and analysis that are crucial for effective data management and gaining valuable insights. It excels in handling various data types and is particularly useful in machine learning tasks.</p>
+
+                <h3>1.3 Installation and Setup</h3>
+                <div class="info-box">
+                    <h4>Installation Methods:</h4>
+                    <ul>
+                        <li><strong>Anaconda:</strong> Easiest for beginners - includes Pandas and other PyData packages</li>
+                        <li><strong>Miniconda:</strong> Minimal installation with Conda package manager</li>
+                        <li><strong>pip:</strong> <code>pip install pandas</code> (requires pip 19.3+)</li>
+                    </ul>
+                </div>
+
+                <h3>1.4 Importing Pandas</h3>
+                <div class="code-block">
+                    <pre><code>import pandas as pd
+
+# This conventional alias allows concise access to Pandas functions
+# Example: pd.DataFrame(), pd.Series(), pd.read_csv()</code></pre>
+                </div>
+            </section>
+
+            <!-- Data Structures -->
+            <section id="data-structures" class="section">
+                <h2>2. Core Data Structures: Series and DataFrame</h2>
+
+                <h3>2.1 Pandas Series: The 1D Labeled Array</h3>
+                
+                <h4>2.1.1 Definition and Components</h4>
+                <p>A Pandas Series is a one-dimensional, labeled array-like object capable of holding data of any type. It consists of two main components: the <strong>data</strong> (actual values) and the <strong>labels</strong> (index values).</p>
+
+                <h4>2.1.2 Creating a Series</h4>
+                <div class="code-block">
+                    <pre><code># From a Python List
+data = [10, 20, 30, 40, 50]
+my_series = pd.Series(data)
+print(my_series)
+
+# With Custom Labels
+my_series = pd.Series(data, index=["a", "b", "c", "d", "e"])
+print(my_series)
+
+# From a Dictionary
+grades = {"Semester1": 3.25, "Semester2": 3.28, "Semester3": 3.75}
+my_series = pd.Series(grades)
+print(my_series)
+
+# From NumPy Array
+import numpy as np
+data = np.array(['g', 'e', 'e', 'k', 's'])
+ser = pd.Series(data)
+print(ser)</code></pre>
+                </div>
+
+                <h4>2.1.3 Series Attributes and Basic Operations</h4>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Attribute</th>
+                                <th>Description</th>
+                                <th>Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>axes</code></td>
+                                <td>Returns the list of labels</td>
+                                <td><code>series.axes</code></td>
+                            </tr>
+                            <tr>
+                                <td><code>dtype</code></td>
+                                <td>Returns the data type</td>
+                                <td><code>series.dtype</code></td>
+                            </tr>
+                            <tr>
+                                <td><code>size</code></td>
+                                <td>Returns total number of elements</td>
+                                <td><code>series.size</code></td>
+                            </tr>
+                            <tr>
+                                <td><code>values</code></td>
+                                <td>Returns data as NumPy array</td>
+                                <td><code>series.values</code></td>
+                            </tr>
+                            <tr>
+                                <td><code>head(n)</code></td>
+                                <td>Returns first n rows</td>
+                                <td><code>series.head(3)</code></td>
+                            </tr>
+                            <tr>
+                                <td><code>tail(n)</code></td>
+                                <td>Returns last n rows</td>
+                                <td><code>series.tail(3)</code></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>2.2 Pandas DataFrame: The 2D Tabular Structure</h3>
+                
+                <h4>2.2.1 Definition and Key Features</h4>
+                <div class="highlight-box">
+                    <h4>DataFrame Key Features:</h4>
+                    <ul>
+                        <li><strong>Heterogeneous Columns:</strong> Different data types per column</li>
+                        <li><strong>Mutable Size:</strong> Can add/delete rows and columns</li>
+                        <li><strong>Labeled Axes:</strong> Both rows and columns have explicit labels</li>
+                        <li><strong>Arithmetic Operations:</strong> Supports vectorized operations</li>
+                    </ul>
+                </div>
+
+                <h4>2.2.2 Creating a DataFrame</h4>
+                <div class="code-block">
+                    <pre><code># From Lists
+data = [['Alex',10], ['Bob',12], ['Clarke',13]]
+df = pd.DataFrame(data, columns=['Name','Age'])
+print(df)
+
+# From Dictionary of Lists
+data = {'Name':['Tom', 'Jack', 'Steve', 'Ricky'], 
+        'Age':[28, 34, 29, 42]}
+df = pd.DataFrame(data)
+print(df)
+
+# From List of Dictionaries
+data = [{'a': 1, 'b': 2}, {'a': 5, 'b': 10, 'c': 20}]
+df = pd.DataFrame(data)
+print(df)
+
+# From NumPy Array
+import numpy as np
+data = np.array([[1, 2, 3], [4, 5, 6]])
+df = pd.DataFrame(data, columns=['A', 'B', 'C'])
+print(df)</code></pre>
+                </div>
+
+                <h4>2.2.3 DataFrame Attributes and Inspection Methods</h4>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Method/Attribute</th>
+                                <th>Purpose</th>
+                                <th>Output</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>df.shape</code></td>
+                                <td>Dimensions of DataFrame</td>
+                                <td>Tuple (rows, columns)</td>
+                            </tr>
+                            <tr>
+                                <td><code>df.info()</code></td>
+                                <td>Concise summary</td>
+                                <td>Data types, non-null counts, memory usage</td>
+                            </tr>
+                            <tr>
+                                <td><code>df.describe()</code></td>
+                                <td>Statistical summary</td>
+                                <td>Count, mean, std, min, max, quartiles</td>
+                            </tr>
+                            <tr>
+                                <td><code>df.head()</code></td>
+                                <td>First few rows</td>
+                                <td>DataFrame subset</td>
+                            </tr>
+                            <tr>
+                                <td><code>df.columns</code></td>
+                                <td>Column labels</td>
+                                <td>Index object</td>
+                            </tr>
+                            <tr>
+                                <td><code>df.dtypes</code></td>
+                                <td>Data type of each column</td>
+                                <td>Series with column names and dtypes</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Comparison Table -->
+                <h3>Series vs DataFrame Comparison</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th>Pandas Series</th>
+                                <th>Pandas DataFrame</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Dimension</td>
+                                <td>1-dimensional</td>
+                                <td>2-dimensional</td>
+                            </tr>
+                            <tr>
+                                <td>Analogy</td>
+                                <td>Single column in spreadsheet</td>
+                                <td>Entire spreadsheet/SQL table</td>
+                            </tr>
+                            <tr>
+                                <td>Components</td>
+                                <td>Labeled index + data values</td>
+                                <td>Labeled rows + labeled columns + data</td>
+                            </tr>
+                            <tr>
+                                <td>Data Types</td>
+                                <td>Homogeneous (typically)</td>
+                                <td>Heterogeneous columns</td>
+                            </tr>
+                            <tr>
+                                <td>Primary Use Case</td>
+                                <td>Single column analysis, time series</td>
+                                <td>Tabular data analysis, ML datasets</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- I/O Tools -->
+            <section id="io-tools" class="section">
+                <h2>3. Data Input and Output (I/O Tools)</h2>
+
+                <h3>3.1 Reading Data into Pandas</h3>
+                
+                <h4>CSV & Text Files (pd.read_csv())</h4>
+                <div class="code-block">
+                    <pre><code># Basic CSV reading
+df = pd.read_csv('data.csv')
+
+# With specific parameters for optimization
+df = pd.read_csv('data.csv', 
+                 sep=',',                    # Delimiter
+                 header=0,                   # Header row
+                 index_col=0,                # Index column
+                 usecols=['col1', 'col2'],   # Specific columns
+                 dtype={'col1': 'int32'},    # Data types
+                 chunksize=10000)            # Process in chunks</code></pre>
+                </div>
+
+                <h4>Excel Files (pd.read_excel())</h4>
+                <div class="code-block">
+                    <pre><code># Reading Excel files
+df = pd.read_excel('data.xlsx', 
+                   sheet_name='Sheet1',      # Specific sheet
+                   header=0,                 # Header row
+                   usecols='A:D',           # Column range
+                   engine='openpyxl')       # Engine for .xlsx</code></pre>
+                </div>
+
+                <h4>JSON Files (pd.read_json())</h4>
+                <div class="code-block">
+                    <pre><code># Reading JSON data
+df = pd.read_json('data.json', 
+                  orient='records',         # JSON structure
+                  lines=True)              # Line-delimited JSON</code></pre>
+                </div>
+
+                <h4>SQL Databases (pd.read_sql())</h4>
+                <div class="code-block">
+                    <pre><code># Reading from SQL database
+import sqlite3
+conn = sqlite3.connect('database.db')
+
+df = pd.read_sql('SELECT * FROM table_name', 
+                 con=conn,
+                 index_col='id',
+                 chunksize=5000)           # Process in chunks</code></pre>
+                </div>
+
+                <h3>3.2 Writing Data from Pandas</h3>
+                
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Function</th>
+                                <th>Purpose</th>
+                                <th>Key Parameters</th>
+                                <th>Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>to_csv()</code></td>
+                                <td>Write to CSV file</td>
+                                <td>path_or_buf, sep, na_rep, index</td>
+                                <td><code>df.to_csv('output.csv', index=False)</code></td>
+                            </tr>
+                            <tr>
+                                <td><code>to_excel()</code></td>
+                                <td>Write to Excel sheet</td>
+                                <td>excel_writer, sheet_name, index</td>
+                                <td><code>df.to_excel('output.xlsx', sheet_name='Data')</code></td>
+                            </tr>
+                            <tr>
+                                <td><code>to_json()</code></td>
+                                <td>Write to JSON string</td>
+                                <td>path_or_buf, orient, lines</td>
+                                <td><code>df.to_json('output.json', orient='records')</code></td>
+                            </tr>
+                            <tr>
+                                <td><code>to_sql()</code></td>
+                                <td>Write to SQL database</td>
+                                <td>name, con, if_exists, index</td>
+                                <td><code>df.to_sql('table', con, if_exists='replace')</code></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Data Manipulation -->
+            <section id="data-manipulation" class="section">
+                <h2>4. Data Selection and Manipulation</h2>
+
+                <h3>4.1 Indexing and Subsetting Data</h3>
+                
+                <div class="warning-box">
+                    <h4>Important Indexing Methods:</h4>
+                    <ul>
+                        <li><strong>[] (Brackets):</strong> Quick column selection and row slicing</li>
+                        <li><strong>.loc:</strong> Label-based indexing</li>
+                        <li><strong>.iloc:</strong> Integer position-based indexing</li>
+                        <li><strong>.at/.iat:</strong> Fast scalar value access</li>
+                    </ul>
+                </div>
+
+                <div class="code-block">
+                    <pre><code># Direct indexing with brackets
+df['column_name']           # Single column
+df[['col1', 'col2']]       # Multiple columns
+df[0:5]                    # Row slicing
+
+# Label-based indexing with .loc
+df.loc[:, 'A']             # All rows, column 'A'
+df.loc['row1', 'col1']     # Specific row and column
+df.loc[df['Age'] > 25]     # Boolean indexing
+
+# Position-based indexing with .iloc
+df.iloc[0:3, 1:4]          # Rows 0-2, columns 1-3
+df.iloc[0, 1]              # First row, second column
+
+# Fast scalar access
+df.at['row1', 'col1']      # By label
+df.iat[0, 1]               # By position</code></pre>
+                </div>
+
+                <h3>4.2 Modifying DataFrames</h3>
+                <div class="code-block">
+                    <pre><code># Adding columns
+df['NewCol'] = values
+df.insert(1, 'NewCol', values)  # Insert at position
+
+# Renaming
+df.rename(columns={'OldName': 'NewName'}, inplace=True)
+
+# Dropping columns/rows
+df.drop(columns=['col1', 'col2'])
+df.drop(index=['row1', 'row2'])
+
+# Replacing values
+df.replace({'old_value': 'new_value'})</code></pre>
+                </div>
+
+                <h3>4.3 Handling Missing Data</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Method</th>
+                                <th>Purpose</th>
+                                <th>Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>isnull()</code></td>
+                                <td>Identify missing values</td>
+                                <td><code>df.isnull().sum()</code></td>
+                            </tr>
+                            <tr>
+                                <td><code>fillna()</code></td>
+                                <td>Fill missing values</td>
+                                <td><code>df.fillna(0)</code> or <code>df.fillna(method='ffill')</code></td>
+                            </tr>
+                            <tr>
+                                <td><code>dropna()</code></td>
+                                <td>Remove missing values</td>
+                                                                <td><code>dropna()</code></td>
+                                <td>Remove missing values</td>
+                                <td><code>df.dropna(axis=0, how='any')</code></td>
+                            </tr>
+                            <tr>
+                                <td><code>interpolate()</code></td>
+                                <td>Interpolate missing values</td>
+                                <td><code>df.interpolate(method='linear')</code></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>4.4 Handling Duplicate Data</h3>
+                <div class="code-block">
+                    <pre><code># Check for duplicates
+duplicates = df.duplicated()
+print(f"Number of duplicates: {duplicates.sum()}")
+
+# Remove duplicates
+df_clean = df.drop_duplicates()
+
+# Remove duplicates based on specific columns
+df_clean = df.drop_duplicates(subset=['col1', 'col2'], keep='first')</code></pre>
+                </div>
+
+                <h3>4.5 Data Type Conversion</h3>
+                <div class="code-block">
+                    <pre><code># Convert data types
+df['column'] = df['column'].astype('int64')
+df = df.astype({'col1': 'float32', 'col2': 'category'})
+
+# Convert to datetime
+df['date_column'] = pd.to_datetime(df['date_column'])
+
+# Map values
+df['column'] = df['column'].map({'old_val': 'new_val'})</code></pre>
+                </div>
+
+                <h3>4.6 Sorting Data</h3>
+                <div class="code-block">
+                    <pre><code># Sort by values
+df_sorted = df.sort_values('column_name', ascending=False)
+df_sorted = df.sort_values(['col1', 'col2'], ascending=[True, False])
+
+# Sort by index
+df_sorted = df.sort_index()
+
+# Sort with custom key function
+df_sorted = df.sort_values('column', key=lambda x: x.str.lower())</code></pre>
+                </div>
+            </section>
+
+            <!-- Data Combination -->
+            <section id="data-combination" class="section">
+                <h2>5. Data Combination and Reshaping</h2>
+
+                <h3>5.1 Concatenating DataFrames</h3>
+                <div class="code-block">
+                    <pre><code># Concatenate vertically (stack rows)
+result = pd.concat([df1, df2], axis=0, ignore_index=True)
+
+# Concatenate horizontally (side by side)
+result = pd.concat([df1, df2], axis=1)
+
+# Concatenate with keys for identification
+result = pd.concat([df1, df2], keys=['Dataset1', 'Dataset2'])</code></pre>
+                </div>
+
+                <h3>5.2 Merging DataFrames (SQL-style joins)</h3>
+                <div class="highlight-box">
+                    <h4>Join Types:</h4>
+                    <ul>
+                        <li><strong>Inner:</strong> Only matching keys from both DataFrames</li>
+                        <li><strong>Left:</strong> All keys from left DataFrame</li>
+                        <li><strong>Right:</strong> All keys from right DataFrame</li>
+                        <li><strong>Outer:</strong> All keys from both DataFrames</li>
+                    </ul>
+                </div>
+
+                <div class="code-block">
+                    <pre><code># Basic merge
+result = pd.merge(df1, df2, on='common_column', how='inner')
+
+# Merge on different column names
+result = pd.merge(df1, df2, left_on='col1', right_on='col2', how='left')
+
+# Merge on multiple columns
+result = pd.merge(df1, df2, on=['col1', 'col2'], how='outer')
+
+# Handle overlapping column names
+result = pd.merge(df1, df2, on='key', suffixes=('_left', '_right'))</code></pre>
+                </div>
+
+                <h3>5.3 Reshaping Data</h3>
+                
+                <h4>Pivot Operations</h4>
+                <div class="code-block">
+                    <pre><code># Simple pivot
+pivot_df = df.pivot(index='date', columns='category', values='value')
+
+# Pivot table with aggregation
+pivot_table = df.pivot_table(index='date', 
+                            columns='category', 
+                            values='value', 
+                            aggfunc='mean')
+
+# Melt (unpivot) - wide to long format
+melted_df = df.melt(id_vars=['id', 'date'], 
+                   value_vars=['col1', 'col2'],
+                   var_name='variable', 
+                   value_name='value')</code></pre>
+                </div>
+
+                <h4>Stack and Unstack</h4>
+                <div class="code-block">
+                    <pre><code># Stack - columns to rows
+stacked = df.stack()
+
+# Unstack - rows to columns
+unstacked = df.unstack()
+
+# Stack specific level
+stacked = df.stack(level=0)</code></pre>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Method</th>
+                                <th>Purpose</th>
+                                <th>When to Use</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>concat()</code></td>
+                                <td>Stacking/appending DataFrames</td>
+                                <td>Combining datasets with same structure</td>
+                            </tr>
+                            <tr>
+                                <td><code>merge()</code></td>
+                                <td>SQL-style joins</td>
+                                <td>Combining datasets with related keys</td>
+                            </tr>
+                            <tr>
+                                <td><code>pivot()</code></td>
+                                <td>Reshape data (wide format)</td>
+                                <td>Creating summary tables</td>
+                            </tr>
+                            <tr>
+                                <td><code>melt()</code></td>
+                                <td>Unpivot data (long format)</td>
+                                <td>Preparing data for analysis/visualization</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- GroupBy Operations -->
+            <section id="groupby" class="section">
+                <h2>6. GroupBy Operations</h2>
+
+                <h3>6.1 The Split-Apply-Combine Paradigm</h3>
+                <div class="info-box">
+                    <h4>GroupBy Process:</h4>
+                    <ol>
+                        <li><strong>Split:</strong> Divide data into groups based on criteria</li>
+                        <li><strong>Apply:</strong> Apply function to each group independently</li>
+                        <li><strong>Combine:</strong> Combine results into a single structure</li>
+                    </ol>
+                </div>
+
+                <h3>6.2 Basic GroupBy Operations</h3>
+                <div class="code-block">
+                    <pre><code># Group by single column
+grouped = df.groupby('category')
+
+# Group by multiple columns
+grouped = df.groupby(['category', 'subcategory'])
+
+# Access specific group
+group = grouped.get_group('specific_category')
+
+# Iterate through groups
+for name, group in grouped:
+    print(f"Group: {name}")
+    print(group.head())</code></pre>
+                </div>
+
+                <h3>6.3 Aggregation Functions</h3>
+                <div class="code-block">
+                    <pre><code># Common aggregations
+result = df.groupby('category').agg({
+    'sales': 'sum',
+    'quantity': 'mean',
+    'price': ['min', 'max', 'std']
+})
+
+# Multiple functions on same column
+result = df.groupby('category')['sales'].agg(['sum', 'mean', 'count'])
+
+# Custom aggregation functions
+def custom_agg(x):
+    return x.max() - x.min()
+
+result = df.groupby('category')['sales'].agg(custom_agg)</code></pre>
+                </div>
+
+                <h3>6.4 Named Aggregation</h3>
+                <div class="code-block">
+                    <pre><code># Named aggregation for cleaner output
+result = df.groupby('category').agg(
+    total_sales=pd.NamedAgg(column='sales', aggfunc='sum'),
+    avg_price=pd.NamedAgg(column='price', aggfunc='mean'),
+    max_quantity=pd.NamedAgg(column='quantity', aggfunc='max')
+)</code></pre>
+                </div>
+
+                <h3>6.5 Transformation and Filtering</h3>
+                <div class="code-block">
+                    <pre><code># Transform - same shape as original
+df['sales_normalized'] = df.groupby('category')['sales'].transform(
+    lambda x: (x - x.mean()) / x.std()
+)
+
+# Filter groups based on condition
+large_groups = df.groupby('category').filter(lambda x: len(x) > 10)
+
+# Apply custom function to each group
+def process_group(group):
+    group['rank'] = group['sales'].rank(ascending=False)
+    return group
+
+result = df.groupby('category').apply(process_group)</code></pre>
+                </div>
+            </section>
+
+            <!-- Time Series -->
+            <section id="time-series" class="section">
+                <h2>7. Working with Time Series Data</h2>
+
+                <h3>7.1 Creating DateTime Index</h3>
+                <div class="code-block">
+                    <pre><code># Convert string to datetime
+df['date'] = pd.to_datetime(df['date_string'])
+
+# Set datetime as index
+df.set_index('date', inplace=True)
+
+# Create date range
+date_range = pd.date_range(start='2023-01-01', 
+                          end='2023-12-31', 
+                          freq='D')  # Daily frequency
+
+# Create DataFrame with datetime index
+ts_df = pd.DataFrame(data, index=date_range)</code></pre>
+                </div>
+
+                <h3>7.2 Time Series Indexing and Slicing</h3>
+                <div class="code-block">
+                    <pre><code># Select data by date
+df['2023-01-01']           # Specific date
+df['2023-01']              # Entire month
+df['2023']                 # Entire year
+
+# Date range slicing
+df['2023-01-01':'2023-01-31']
+
+# Boolean indexing with dates
+df[df.index > '2023-06-01']</code></pre>
+                </div>
+
+                <h3>7.3 Resampling</h3>
+                <div class="highlight-box">
+                    <h4>Common Resampling Frequencies:</h4>
+                    <ul>
+                        <li><strong>'D':</strong> Daily</li>
+                        <li><strong>'W':</strong> Weekly</li>
+                        <li><strong>'M':</strong> Monthly</li>
+                        <li><strong>'Q':</strong> Quarterly</li>
+                        <li><strong>'A':</strong> Annual</li>
+                        <li><strong>'H':</strong> Hourly</li>
+                    </ul>
+                </div>
+
+                <div class="code-block">
+                    <pre><code># Downsample to monthly averages
+monthly_avg = df.resample('M').mean()
+
+# Upsample to daily, forward fill
+daily_data = df.resample('D').ffill()
+
+# Custom resampling with multiple aggregations
+resampled = df.resample('M').agg({
+    'sales': 'sum',
+    'customers': 'mean',
+    'orders': 'count'
+})</code></pre>
+                </div>
+
+                <h3>7.4 Rolling Window Calculations</h3>
+                <div class="code-block">
+                    <pre><code># Simple rolling mean
+df['rolling_mean'] = df['sales'].rolling(window=7).mean()
+
+# Rolling with minimum periods
+df['rolling_mean'] = df['sales'].rolling(window=7, min_periods=3).mean()
+
+# Multiple rolling statistics
+rolling_stats = df['sales'].rolling(window=30).agg(['mean', 'std', 'min', 'max'])
+
+# Exponential weighted moving average
+df['ewm'] = df['sales'].ewm(span=10).mean()</code></pre>
+                </div>
+
+                <h3>7.5 Time Series Operations</h3>
+                <div class="code-block">
+                    <pre><code># Shift data
+df['sales_lag1'] = df['sales'].shift(1)    # Previous period
+df['sales_lead1'] = df['sales'].shift(-1)  # Next period
+
+# Calculate differences
+df['sales_diff'] = df['sales'].diff()      # First difference
+df['sales_pct_change'] = df['sales'].pct_change()  # Percentage change
+
+# Extract date components
+df['year'] = df.index.year
+df['month'] = df.index.month
+df['day_of_week'] = df.index.dayofweek</code></pre>
+                </div>
+            </section>
+
+            <!-- Categorical Data -->
+            <section id="categorical" class="section">
+                <h2>8. Categorical Data</h2>
+
+                <h3>8.1 Creating Categorical Data</h3>
+                <div class="code-block">
+                    <pre><code># Create categorical Series
+s = pd.Series(['a', 'b', 'c', 'a'], dtype='category')
+
+# Convert existing column to categorical
+df['category_col'] = df['string_col'].astype('category')
+
+# Create with specific categories and order
+cat_type = pd.CategoricalDtype(categories=['low', 'medium', 'high'], 
+                              ordered=True)
+df['rating'] = df['rating'].astype(cat_type)
+
+# Using pd.Categorical directly
+cat_data = pd.Categorical(['a', 'b', 'c', 'a'], 
+                         categories=['a', 'b', 'c', 'd'])
+s = pd.Series(cat_data)</code></pre>
+                </div>
+
+                <h3>8.2 Categorical Operations</h3>
+                <div class="warning-box">
+                    <h4>Ordered vs Unordered:</h4>
+                    <ul>
+                        <li><strong>Unordered:</strong> Categories have no meaningful order (e.g., colors, names)</li>
+                        <li><strong>Ordered:</strong> Categories have a logical order (e.g., ratings, sizes)</li>
+                    </ul>
+                </div>
+
+                <div class="code-block">
+                    <pre><code># Access categorical properties
+print(s.cat.categories)        # View categories
+print(s.cat.ordered)          # Check if ordered
+print(s.cat.codes)            # View integer codes
+
+# Modify categories
+s.cat.add_categories(['d', 'e'])           # Add categories
+s.cat.remove_categories(['d'])             # Remove categories
+s.cat.rename_categories({'a': 'alpha'})    # Rename categories
+s.cat.reorder_categories(['c', 'b', 'a'])  # Reorder categories
+
+# Convert to ordered
+s = s.cat.as_ordered()
+
+# Remove unused categories
+s = s.cat.remove_unused_categories()</code></pre>
+                </div>
+
+                <h3>8.3 Benefits of Categorical Data</h3>
+                <div class="info-box">
+                    <h4>Advantages:</h4>
+                    <ul>
+                        <li><strong>Memory Efficiency:</strong> Stores string data more efficiently</li>
+                        <li><strong>Performance:</strong> Faster operations on categorical data</li>
+                        <li><strong>Statistical Modeling:</strong> Required for many ML algorithms</li>
+                        <li><strong>Data Validation:</strong> Ensures values are within defined categories</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Performance -->
+            <section id="performance" class="section">
+                <h2>9. Performance Optimization and Best Practices</h2>
+
+                <h3>9.1 Efficient Data Types</h3>
+                <div class="code-block">
+                    <pre><code># Specify dtypes when reading data
+df = pd.read_csv('large_file.csv', dtype={
+    'id': 'int32',
+    'category': 'category',
+    'value': 'float32'
+})
+
+# Downcast numeric types
+df['int_col'] = pd.to_numeric(df['int_col'], downcast='integer')
+df['float_col'] = pd.to_numeric(df['float_col'], downcast='float')
+
+# Use category for string columns with few unique values
+df['status'] = df['status'].astype('category')</code></pre>
+                </div>
+
+                <h3>9.2 Chunking for Large Datasets</h3>
+                <div class="code-block">
+                    <pre><code># Process data in chunks
+chunk_size = 10000
+results = []
+
+for chunk in pd.read_csv('huge_file.csv', chunksize=chunk_size):
+    # Process each chunk
+    processed_chunk = chunk.groupby('category').sum()
+    results.append(processed_chunk)
+
+# Combine results
+final_result = pd.concat(results).groupby(level=0).sum()</code></pre>
+                </div>
+
+                <h3>9.3 Vectorized Operations</h3>
+                <div class="code-block">
+                    <pre><code># Avoid loops - use vectorized operations
+# Bad: Using loops
+result = []
+for i, row in df.iterrows():
+    result.append(row['A'] * row['B'])
+
+# Good: Vectorized operation
+df['result'] = df['A'] * df['B']
+
+# Use NumPy functions for mathematical operations
+df['log_value'] = np.log(df['value'])
+df['sqrt_value'] = np.sqrt(df['value'])</code></pre>
+                </div>
+
+                <h3>9.4 Query for Fast Filtering</h3>
+                <div class="code-block">
+                    <pre><code># Use query() for complex filtering
+# Instead of: df[(df['A'] > 5) & (df['B'] < 10)]
+filtered_df = df.query('A > 5 and B < 10')
+
+# Query with variables
+threshold = 100
+filtered_df = df.query('sales > @threshold')</code></pre>
+                </div>
+
+                <h3>9.5 Performance Optimization Summary</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Technique</th>
+                                <th>Benefit</th>
+                                <th>When to Use</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Efficient Data Types</td>
+                                <td>Reduces memory usage</td>
+                                <td>Large datasets, memory constraints</td>
+                            </tr>
+                            <tr>
+                                <td>Chunking</td>
+                                <td>Enables out-of-core processing</td>
+                                <td>Datasets larger than RAM</td>
+                            </tr>
+                            <tr>
+                                <td>Vectorized Operations</td>
+                                <td>100x faster than loops</td>
+                                <td>Mathematical operations, transformations</td>
+                            </tr>
+                            <tr>
+                                <td>Query Method</td>
+                                <td>Optimized filtering</td>
+                                <td>Complex boolean conditions</td>
+                            </tr>
+                            <tr>
+                                <td>Parallel Processing (Dask)</td>
+                                <td>Multi-core utilization</td>
+                                <td>CPU-intensive operations</td>
+                            </tr>
+                            <tr>
+                                <td>GPU Acceleration (cuDF)</td>
+                                <td>150x performance boost</td>
+                                <td>Extremely large datasets</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>9.6 Best Practices Summary</h3>
+                <div class="highlight-box">
+                    <h4>Key Recommendations:</h4>
+                    <ul>
+                        <li>Always specify data types when reading large files</li>
+                        <li>Use categorical data for string columns with few unique values</li>
+                        <li>Prefer vectorized operations over loops</li>
+                        <li>Use chunking for datasets larger than memory</li>
+                        <li>Profile your code to identify bottlenecks</li>
+                        <li>Consider Dask for parallel processing</li>
+                        <li>Use appropriate file formats (Parquet, Feather) for better performance</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Conclusion -->
+            <section class="section">
+                <h2>Conclusion</h2>
+                <div class="abstract">
+                    Pandas stands as an indispensable library in the Python data science ecosystem, offering a comprehensive and highly efficient toolkit for data manipulation and analysis. Its core strengths lie in its flexible and powerful data structures, extensive I/O capabilities, rich set of data manipulation methods, and performance optimization strategies. 
+                    
+                    <br><br>
+                    
+                    Understanding and applying these concepts and best practices are paramount for scaling Pandas workflows and maximizing efficiency in real-world data science challenges. Pandas is not merely a library; it is a foundational pillar for data professionals, providing the tools necessary to navigate the complexities of data from raw ingestion to sophisticated analysis and reporting.
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2024 Python Pandas Comprehensive Guide | Created for Educational Purposes</p>
+            <p>🐼 Happy Data Analysis with Pandas! 🐼</p>
+        </footer>
+
+        <!-- Scroll to top button -->
+        <button class="scroll-top" onclick="scrollToTop()">↑</button>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Scroll to top functionality
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Show/hide scroll to top button
+        window.addEventListener('scroll', function() {
+            const scrollButton = document.querySelector('.scroll-top');
+            if (window.pageYOffset > 300) {
+                scrollButton.style.display = 'block';
+            } else {
+                scrollButton.style.display = 'none';
+            }
+        });
+
+        // Add syntax highlighting to code blocks
+        document.addEventListener('DOMContentLoaded', function() {
+            const codeBlocks = document.querySelectorAll('.code-block pre code');
+            codeBlocks.forEach(block => {
+                // Simple syntax highlighting for Python
+                let content = block.innerHTML;
+                
+                // Highlight Python keywords
+                content = content.replace(/\b(import|from|def|class|if|else|elif|for|while|try|except|finally|with|as|return|yield|lambda|and|or|not|in|is|True|False|None)\b/g, '<span style="color: #e74c3c; font-weight: bold;">$1</span>');
+                
+                // Highlight strings
+                content = content.replace(/(['"])((?:(?!\1)[^\\]|\\.)*)(\1)/g, '<span style="color: #27ae60;">$1$2$3</span>');
+                
+                // Highlight comments
+                content = content.replace(/(#.*$)/gm, '<span style="color: #95a5a6; font-style: italic;">$1</span>');
+                
+                // Highlight numbers
+                content = content.replace(/\b(\d+\.?\d*)\b/g, '<span style="color: #f39c12;">$1</span>');
+                
+                block.innerHTML = content;
+            });
+        });
+    </script>
+</body>
+</html>
+
