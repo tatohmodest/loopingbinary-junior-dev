@@ -161,7 +161,7 @@ export default function CreateTeamPage() {
       
       // Redirect to team page after a short delay
       setTimeout(() => {
-         router.push(`/dashboard/teams`)
+         router.push(`/dashboard/team`)
       }, 3000)
     } catch (error: any) {
       setError(error.message || "Failed to create team")
